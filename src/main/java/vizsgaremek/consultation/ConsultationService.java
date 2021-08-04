@@ -12,7 +12,6 @@ import javax.transaction.Transactional;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -31,8 +30,7 @@ public class ConsultationService {
         }.getType();
         List<Consultation> filteredConsultations = repository.findAll().stream()
                 .filter(consultation -> prefix.isEmpty()
-                        || consultation.getTitle().toLowerCase().contains(prefix.get().toLowerCase())
-                        || consultation.getSubject().toLowerCase().contains(prefix.get().toLowerCase()))
+                        || consultation.getTitle().toLowerCase().contains(prefix.get().toLowerCase()))
                 .collect(Collectors.toList());
         return modelMapper.map(filteredConsultations, targetListType);
     }
@@ -62,13 +60,11 @@ public class ConsultationService {
         Consultation consultation = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Consultation with id: " + id + " not found."));
         Mentor mentor = mentorRepository.getById(command.getMentorId());
-        if (mentor != null) {
-            consultation.setTitle(command.getTitle());
-            consultation.setTime(command.getTime());
-            consultation.setMentor(mentor);
-            if (command.getSubject() != null) {
-                consultation.setSubject(command.getSubject());
-            }
+        consultation.setTitle(command.getTitle());
+        consultation.setTime(command.getTime());
+        consultation.setMentor(mentor);
+        if (command.getSubject() != null) {
+            consultation.setSubject(command.getSubject());
         }
 
         return modelMapper.map(consultation, ConsultationDto.class);
@@ -78,15 +74,12 @@ public class ConsultationService {
         repository.deleteById(id);
     }
 
-    public Set<ConsultationDto> listConsultationsByMentorId(long id, Optional<String> prefix) {
-        Type targetType = new TypeToken<Set<ConsultationDto>>() {
-        }.getType();
-        Mentor mentor = mentorRepository.getById(id);
-        Set<Consultation> consultations = repository.findConsultationByMentorId(id).stream()
+    public List<ConsultationDto> listConsultationsByMentorId(long id, Optional<String> prefix) {
+        Type targetType = new TypeToken<List<ConsultationDto>>() {}.getType();
+        List<Consultation> consultations = repository.findConsultationByMentorId(id).stream()
                 .filter(consultation -> prefix.isEmpty()
-                        || consultation.getTitle().toLowerCase().contains(prefix.get().toLowerCase())
-                        || consultation.getSubject().toLowerCase().contains(prefix.get().toLowerCase()))
-                .collect(Collectors.toSet());
+                        || consultation.getTitle().toLowerCase().contains(prefix.get().toLowerCase()))
+                .collect(Collectors.toList());
 
         return modelMapper.map(consultations, targetType);
     }

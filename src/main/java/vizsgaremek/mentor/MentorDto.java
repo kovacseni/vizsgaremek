@@ -1,8 +1,12 @@
 package vizsgaremek.mentor;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vizsgaremek.consultation.ConsultationDto;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -13,4 +17,6 @@ public class MentorDto {
     private String name;
     private String email;
     private Position position;
+    @JsonBackReference
+    private List<ConsultationDto> consultations;
 }

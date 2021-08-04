@@ -1,0 +1,12 @@
+{
+  "id": 1,
+  "title": "Konzultáció a vizsgaremekről",
+  "time": "2021-07-28T15:30:00",
+  "mentor": {
+    "id": 2,
+    "name": "Mentor Trainer Instructor",
+    "email": "mentort@gmail.com",
+    "position": null
+  },
+  "subject": null
+}

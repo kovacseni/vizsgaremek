@@ -3,4 +3,5 @@ create table consultations (id bigint not null auto_increment,
                       time date not null,
                       mentor_id bigint not null,
                       subject varchar(1000),
-                      primary key (id));
+                      primary key (id),
+                      foreign key (mentor_id) references mentors(id));

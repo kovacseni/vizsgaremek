@@ -32,7 +32,7 @@ Accept: application/json
 }
 
 ### (delete Mentor)
-DELETE http://localhost:8080/api/mentors/3
+DELETE http://localhost:8080/api/mentors/6
 
 ### Validation (elvárt válasz: a validáció miatt elbukik a Mentor létrehozása)
 POST http://localhost:8080/api/mentors

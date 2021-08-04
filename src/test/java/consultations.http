@@ -16,28 +16,28 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "title": "Konzultáció a vizsgaremekről",
+  "title": "Konzultáció a vizgaremekről",
   "time": "2021-07-28T15:30:00",
   "mentorId": 2
 }
 
 ### (update Consultation)
-PUT http://localhost:8080/api/consultations/7
+PUT http://localhost:8080/api/consultations/3
 Content-Type: application/json
 Accept: application/json
 
 {
-  "title": "Konzultáció a vizsgaremekről",
+  "title": "Konzultáció a vizgaremekről",
   "time": "2021-07-28T15:30:00",
-  "mentorId": 35,
+  "mentorId": 1,
   "subject": "Projektmunka és vizsgaremek témák kiosztása"
 }
 
 ### (delete Consultation)
-DELETE http://localhost:8080/api/consultations/3
+DELETE http://localhost:8080/api/consultations/2
 
 ### (list Consultations by Mentor id)
-GET http://localhost:8080/api/consultations/mentor/2
+GET http://localhost:8080/api/consultations/mentor/3
 Accept: application/json
 
 ### Validation (elvárt válasz: a validáció miatt elbukik a Consultation létrehozása)
@@ -48,11 +48,7 @@ Accept: application/json
 {
   "title": null,
   "time": "2021-07-28T15:30:00",
-  "mentor": {
-    "id": 2,
-    "name": "Mentor Trainer",
-    "email": "trainer.mentor@training.com"
-  }
+  "mentorId": 2
 }
 
 ### Validation (elvárt válasz: a validáció miatt elbukik a Consultation létrehozása)
@@ -63,11 +59,7 @@ Accept: application/json
 {
   "title": "  ",
   "time": "2021-07-28T15:30:00",
-  "mentor": {
-    "id": 2,
-    "name": "Mentor Trainer",
-    "email": "trainer.mentor@training.com"
-  }
+  "mentorId": 2
 }
 
 ### Validation (elvárt válasz: a validáció miatt elbukik a Consultation létrehozása)
@@ -78,11 +70,7 @@ Accept: application/json
 {
   "title": "Konzultáció a vizsgaremekről",
   "time": null,
-  "mentor": {
-    "name": "Mentor Trainer",
-    "email": "trainer.mentor@training.com",
-    "position": "SENIOR_OKTATO"
-  }
+  "mentorId": 2
 }
 
 ### Validation (elvárt válasz: a validáció miatt elbukik a Consultation létrehozása)
@@ -93,7 +81,7 @@ Accept: application/json
 {
   "title": "Konzultáció a vizsgaremekről",
   "time": "2021-07-28T15:30:00",
-  "mentor": null
+  "mentorId": null
 }
 
 ### Validation (elvárt válasz: a validáció miatt elbukik a Consultation módosítása)
@@ -104,11 +92,7 @@ Accept: application/json
 {
   "title": null,
   "time": "2021-07-28T15:30:00",
-  "mentor": {
-    "name": "Mentor Trainer",
-    "email": "trainer.mentor@training.com",
-    "position": "SENIOR_OKTATO"
-  },
+  "mentorId": 2,
   "subject": "Projektmunka és vizsgaremek témák kiosztása"
 }
 
@@ -120,11 +104,7 @@ Accept: application/json
 {
   "title": " ",
   "time": "2021-07-28T15:30:00",
-  "mentor": {
-    "name": "Mentor Trainer",
-    "email": "trainer.mentor@training.com",
-    "position": "SENIOR_OKTATO"
-  },
+  "mentorId": 2,
   "subject": "Projektmunka és vizsgaremek témák kiosztása"
 }
 
@@ -136,11 +116,7 @@ Accept: application/json
 {
   "title": "Konzultáció a vizsgaremekről",
   "time": null,
-  "mentor": {
-    "name": "Mentor Trainer",
-    "email": "trainer.mentor@training.com",
-    "position": "SENIOR_OKTATO"
-  },
+  "mentorId": 2,
   "subject": "Projektmunka és vizsgaremek témák kiosztása"
 }
 
@@ -152,22 +128,18 @@ Accept: application/json
 {
   "title": "Konzultáció a vizsgaremekről",
   "time": "2021-07-28T15:30:00",
-  "mentor": null,
+  "mentorId": null,
   "subject": "Projektmunka és vizsgaremek témák kiosztása"
 }
 
 ### Validation (elvárt válasz: a Consultation módosítása megtörténik)
-PUT http://localhost:8080/api/consultations/3
+PUT http://localhost:8080/api/consultations/1
 Content-Type: application/json
 Accept: application/json
 
 {
   "title": "Konzultáció a vizsgaremekről",
   "time": "2021-07-28T15:30:00",
-  "mentor": {
-    "name": "Mentor Trainer",
-    "email": "trainer.mentor@training.com",
-    "position": "SENIOR_OKTATO"
-  },
+  "mentorId": 2,
   "subject": null
 }

@@ -39,14 +39,6 @@ public class Mentor {
         this.email = email;
     }
 
-    public void addConsultation(Consultation consultation) {
-        if (consultations == null) {
-            consultations = new ArrayList<>();
-        }
-        consultations.add(consultation);
-        consultation.setMentor(this);
-    }
-
     @Override
     public String toString() {
         return "Mentor{" +

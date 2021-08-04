@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @AllArgsConstructor
 @RestController
@@ -37,14 +36,14 @@ public class ConsultationController {
         return service.updateConsultation(id, command);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteConsultation(@PathVariable("id") long id) {
         service.deleteConsultation(id);
     }
 
     @GetMapping("/mentor/{id}")
-    public Set<ConsultationDto> listConsultationsByMentorId(@PathVariable("id") long id, @RequestParam Optional<String> prefix) {
+    public List<ConsultationDto> listConsultationsByMentorId(@PathVariable("id") long id, @RequestParam Optional<String> prefix) {
         return service.listConsultationsByMentorId(id, prefix);
     }
 }
