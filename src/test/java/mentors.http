@@ -28,7 +28,7 @@ Accept: application/json
 {
   "name": "Mentor Trainer Instructor",
   "email": "mentort@gmail.com",
-  "position": "JUNIOR_OKTATO",
+  "position": "JUNIOR_MENTOR",
   "status": "PENDING"
 }
 
@@ -83,7 +83,7 @@ Accept: application/json
 {
   "name": null,
   "email": "trainer.mentor@training.com",
-  "position": "JUNIOR_OKTATO"
+  "position": "JUNIOR_MENTOR"
 }
 
 ### Validation (elvárt válasz: a validáció miatt elbukik a Mentor módosítása)
@@ -94,7 +94,7 @@ Accept: application/json
 {
   "name": "   ",
   "email": "trainer.mentor@training.com",
-  "position": "JUNIOR_OKTATO"
+  "position": "JUNIOR_MENTOR"
 }
 
 ### Validation (elvárt válasz: a validáció miatt elbukik a Mentor módosítása)
@@ -105,7 +105,7 @@ Accept: application/json
 {
   "name": "Mentor Trainer",
   "email": null,
-  "position": "JUNIOR_OKTATO"
+  "position": "JUNIOR_MENTOR"
 }
 
 ### Validation (elvárt válasz: a validáció miatt elbukik a Mentor módosítása)
@@ -116,7 +116,7 @@ Accept: application/json
 {
   "name": "Mentor Trainer",
   "email": "   ",
-  "position": "JUNIOR_OKTATO"
+  "position": "JUNIOR_MENTOR"
 }
 
 ### Validation (elvárt válasz: a Mentor adatai módosulnak)

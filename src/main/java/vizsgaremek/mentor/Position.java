@@ -2,5 +2,5 @@ package vizsgaremek.mentor;
 
 public enum Position {
 
-    SENIOR_OKTATO, OKTATO, JUNIOR_OKTATO
+    SENIOR_MENTOR, MENTOR, JUNIOR_MENTOR
 }

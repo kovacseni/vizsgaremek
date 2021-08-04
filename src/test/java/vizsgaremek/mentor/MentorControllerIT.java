@@ -94,7 +94,7 @@ public class MentorControllerIT {
         long id = mentor.getId();
 
         template.put("/api/mentors/" + id, new UpdateMentorCommand("Mentor Trainer Instructor",
-                "mentort@gmail.com", Position.JUNIOR_OKTATO, vizsgaremek.mentor.Status.PENDING));
+                "mentort@gmail.com", Position.JUNIOR_MENTOR, vizsgaremek.mentor.Status.PENDING));
 
         MentorDto expected = template.exchange("/api/mentors/" + id,
                 HttpMethod.GET,
@@ -105,7 +105,7 @@ public class MentorControllerIT {
         assertAll(
                 () -> assertEquals("Mentor Trainer Instructor", expected.getName()),
                 () -> assertEquals("mentort@gmail.com", expected.getEmail()),
-                () -> assertEquals(Position.JUNIOR_OKTATO, expected.getPosition()),
+                () -> assertEquals(Position.JUNIOR_MENTOR, expected.getPosition()),
                 () -> assertEquals(vizsgaremek.mentor.Status.PENDING, expected.getStatus()));
     }
 
@@ -115,7 +115,7 @@ public class MentorControllerIT {
         long id = mentor.getId();
 
         template.put("/api/mentors/" + id, new UpdateMentorCommand("Mentor Trainer Instructor",
-                "mentort@gmail.com", Position.JUNIOR_OKTATO, vizsgaremek.mentor.Status.DELETED));
+                "mentort@gmail.com", Position.JUNIOR_MENTOR, vizsgaremek.mentor.Status.DELETED));
 
         MentorDto expected = template.exchange("/api/mentors/" + id,
                 HttpMethod.GET,
@@ -126,7 +126,7 @@ public class MentorControllerIT {
         assertAll(
                 () -> assertEquals("Mentor Trainer Instructor", expected.getName()),
                 () -> assertEquals("mentort@gmail.com", expected.getEmail()),
-                () -> assertEquals(Position.JUNIOR_OKTATO, expected.getPosition()),
+                () -> assertEquals(Position.JUNIOR_MENTOR, expected.getPosition()),
                 () -> assertEquals(vizsgaremek.mentor.Status.ACTIVE, expected.getStatus()));
     }
 

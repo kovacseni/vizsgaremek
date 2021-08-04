@@ -148,7 +148,7 @@ public class ConsultationControllerIT {
         long mentor2Id = mentor2.getId();
 
         template.put("/api/mentors/" + mentor2Id, new UpdateMentorCommand("Mentor Trainer Instructor",
-                "mentort@gmail.com", Position.JUNIOR_OKTATO, vizsgaremek.mentor.Status.PENDING));
+                "mentort@gmail.com", Position.JUNIOR_MENTOR, vizsgaremek.mentor.Status.PENDING));
 
         long consultationId = consultation.getId();
 
@@ -260,7 +260,7 @@ public class ConsultationControllerIT {
         long mentor2Id = mentor2.getId();
 
         template.put("/api/mentors/" + mentor2Id, new UpdateMentorCommand("Mentor Trainer Instructor",
-                "mentort@gmail.com", Position.JUNIOR_OKTATO, vizsgaremek.mentor.Status.PENDING));
+                "mentort@gmail.com", Position.JUNIOR_MENTOR, vizsgaremek.mentor.Status.PENDING));
 
         Problem expected = template.postForObject("/api/consultations",
                 new CreateConsultationCommand("Konzultáció a vizsgaremekről",
