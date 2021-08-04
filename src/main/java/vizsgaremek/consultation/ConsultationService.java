@@ -93,7 +93,8 @@ public class ConsultationService {
     }
 
     public List<ConsultationDto> listConsultationsByMentorId(long id, Optional<String> prefix) {
-        Type targetType = new TypeToken<List<ConsultationDto>>() {}.getType();
+        Type targetType = new TypeToken<List<ConsultationDto>>() {
+        }.getType();
         List<Consultation> consultations = repository.findConsultationByMentorId(id).stream()
                 .filter(consultation -> prefix.isEmpty()
                         || consultation.getTitle().toLowerCase().contains(prefix.get().toLowerCase()))

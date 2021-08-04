@@ -1,8 +1,5 @@
 package vizsgaremek.consultation;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import vizsgaremek.mentor.Mentor;
 
@@ -20,7 +17,7 @@ public class Consultation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false)
     private String title;
 
     @Column(nullable = false)

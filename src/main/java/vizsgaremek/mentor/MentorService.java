@@ -20,7 +20,8 @@ public class MentorService {
     private MentorRepository repository;
 
     public List<MentorDto> listMentors(Optional<String> prefix) {
-        Type targetListType = new TypeToken<List<MentorDto>>(){}.getType();
+        Type targetListType = new TypeToken<List<MentorDto>>() {
+        }.getType();
         List<Mentor> filteredMentors = repository.findAll().stream()
                 .filter(mentor -> prefix.isEmpty() || mentor.getName().toLowerCase().contains(prefix.get().toLowerCase()))
                 .collect(Collectors.toList());
