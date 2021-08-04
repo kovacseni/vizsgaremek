@@ -31,12 +31,16 @@ public class Mentor {
     @Enumerated(value = EnumType.STRING)
     private Position position;
 
+    @Enumerated(value = EnumType.STRING)
+    private Status status;
+
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "mentor")
     private List<Consultation> consultations;
 
-    public Mentor(String name, String email) {
+    public Mentor(String name, String email, Status status) {
         this.name = name;
         this.email = email;
+        this.status = status;
     }
 
     @Override

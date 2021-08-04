@@ -22,6 +22,8 @@ public class UpdateMentorCommand {
 
     private Position position;
 
+    private Status status;
+
     public UpdateMentorCommand(String name, String email) {
         this.name = name;
         this.email = email;

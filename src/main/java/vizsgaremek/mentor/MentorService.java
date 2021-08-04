@@ -34,7 +34,7 @@ public class MentorService {
     }
 
     public MentorDto createMentor(CreateMentorCommand command) {
-        Mentor mentor = new Mentor(command.getName(), command.getEmail());
+        Mentor mentor = new Mentor(command.getName(), command.getEmail(), Status.ACTIVE);
         repository.save(mentor);
         return modelMapper.map(mentor, MentorDto.class);
     }
@@ -45,6 +45,9 @@ public class MentorService {
                 .orElseThrow(() -> new IllegalArgumentException("Mentor with id: " + id + " not found."));
         mentor.setName(command.getName());
         mentor.setEmail(command.getEmail());
+        if (command.getStatus() != null && command.getStatus() != Status.DELETED) {
+            mentor.setStatus(command.getStatus());
+        }
         if (command.getPosition() != null) {
             mentor.setPosition(command.getPosition());
         }
@@ -52,7 +55,10 @@ public class MentorService {
         return modelMapper.map(mentor, MentorDto.class);
     }
 
+    @Transactional
     public void deleteMentor(long id) {
-        repository.deleteById(id);
+        Mentor mentor = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Mentor with id: " + id + " not found."));
+        mentor.setStatus(Status.DELETED);
     }
 }

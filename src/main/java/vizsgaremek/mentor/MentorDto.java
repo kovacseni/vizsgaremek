@@ -17,6 +17,7 @@ public class MentorDto {
     private String name;
     private String email;
     private Position position;
+    private Status status;
     @JsonBackReference
     private List<ConsultationDto> consultations;
 }

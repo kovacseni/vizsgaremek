@@ -85,6 +85,7 @@ public class MentorControllerIT {
 
         assertEquals("Trainer Instructor", expected.getName());
         assertEquals("instructor.trainer@training.com", expected.getEmail());
+        assertEquals(vizsgaremek.mentor.Status.ACTIVE, expected.getStatus());
     }
 
     @Test
@@ -93,7 +94,7 @@ public class MentorControllerIT {
         long id = mentor.getId();
 
         template.put("/api/mentors/" + id, new UpdateMentorCommand("Mentor Trainer Instructor",
-                "mentort@gmail.com", Position.JUNIOR_OKTATO));
+                "mentort@gmail.com", Position.JUNIOR_OKTATO, vizsgaremek.mentor.Status.PENDING));
 
         MentorDto expected = template.exchange("/api/mentors/" + id,
                 HttpMethod.GET,
@@ -104,7 +105,29 @@ public class MentorControllerIT {
         assertAll(
                 () -> assertEquals("Mentor Trainer Instructor", expected.getName()),
                 () -> assertEquals("mentort@gmail.com", expected.getEmail()),
-                () -> assertEquals(Position.JUNIOR_OKTATO, expected.getPosition()));
+                () -> assertEquals(Position.JUNIOR_OKTATO, expected.getPosition()),
+                () -> assertEquals(vizsgaremek.mentor.Status.PENDING, expected.getStatus()));
+    }
+
+    @Test
+    void testUpdateMentorWithWrongValue() {
+
+        long id = mentor.getId();
+
+        template.put("/api/mentors/" + id, new UpdateMentorCommand("Mentor Trainer Instructor",
+                "mentort@gmail.com", Position.JUNIOR_OKTATO, vizsgaremek.mentor.Status.DELETED));
+
+        MentorDto expected = template.exchange("/api/mentors/" + id,
+                HttpMethod.GET,
+                null,
+                MentorDto.class)
+                .getBody();
+
+        assertAll(
+                () -> assertEquals("Mentor Trainer Instructor", expected.getName()),
+                () -> assertEquals("mentort@gmail.com", expected.getEmail()),
+                () -> assertEquals(Position.JUNIOR_OKTATO, expected.getPosition()),
+                () -> assertEquals(vizsgaremek.mentor.Status.ACTIVE, expected.getStatus()));
     }
 
     @Test
@@ -121,10 +144,13 @@ public class MentorControllerIT {
                 })
                 .getBody();
 
-        assertEquals(2, expected.size());
+        assertEquals(3, expected.size());
         assertThat(expected)
                 .extracting(MentorDto::getName)
-                .containsExactly("Mentor Trainer", "Instructor Mentor");
+                .containsExactly("Mentor Trainer", "Instructor Mentor", "Trainer Instructor");
+        assertThat(expected)
+                .extracting(MentorDto::getStatus)
+                .contains(vizsgaremek.mentor.Status.ACTIVE, vizsgaremek.mentor.Status.ACTIVE, vizsgaremek.mentor.Status.DELETED);
     }
 
     @Test

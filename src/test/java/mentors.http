@@ -28,11 +28,12 @@ Accept: application/json
 {
   "name": "Mentor Trainer Instructor",
   "email": "mentort@gmail.com",
-  "position": "JUNIOR_OKTATO"
+  "position": "JUNIOR_OKTATO",
+  "status": "PENDING"
 }
 
 ### (delete Mentor)
-DELETE http://localhost:8080/api/mentors/6
+DELETE http://localhost:8080/api/mentors/5
 
 ### Validation (elvárt válasz: a validáció miatt elbukik a Mentor létrehozása)
 POST http://localhost:8080/api/mentors
@@ -127,4 +128,16 @@ Accept: application/json
   "name": "Mentor Trainer Instructor",
   "email": "mentort@gmail.com",
   "position": null
+}
+
+### Validation (elvárt válasz: nem keletkezik hiba, de a Mentor adatai nem módosulnak)
+PUT http://localhost:8080/api/mentors/2
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Mentor Trainer Instructor",
+  "email": "mentort@gmail.com",
+  "position": null,
+  "status": "DELETED"
 }
