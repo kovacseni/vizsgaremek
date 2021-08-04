@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vizsgaremek.mentor.Mentor;
 import vizsgaremek.mentor.MentorRepository;
+import vizsgaremek.mentor.Status;
 
 import javax.transaction.Transactional;
 import java.lang.reflect.Type;
@@ -43,31 +44,48 @@ public class ConsultationService {
 
     @Transactional
     public ConsultationDto createAndAddConsultation(CreateConsultationCommand command) {
-        Mentor mentor = mentorRepository.getById(command.getMentorId());
+        Mentor mentor = mentorRepository.findById(command.getMentorId())
+                .orElseThrow(() -> new IllegalArgumentException("Mentor with id: " + command.getMentorId() + " not found."));
+        if (mentor.getStatus() == Status.ACTIVE) {
+            Consultation consultation = makeNewConsultation(command, mentor);
+            repository.save(consultation);
+
+            return modelMapper.map(consultation, ConsultationDto.class);
+        }
+        throw new IllegalArgumentException("Mentor with id: " + command.getMentorId() + " is not in active status.");
+    }
+
+    private Consultation makeNewConsultation(CreateConsultationCommand command, Mentor mentor) {
         Consultation consultation = new Consultation(command.getTitle(), command.getTime(), mentor);
         if (command.getSubject() != null) {
             consultation.setSubject(command.getSubject());
         }
-        consultation.setMentor(mentor);
-
-        repository.save(consultation);
-
-        return modelMapper.map(consultation, ConsultationDto.class);
+        return consultation;
     }
 
     @Transactional
     public ConsultationDto updateConsultation(long id, UpdateConsultationCommand command) {
+        Mentor mentor = mentorRepository.findById(command.getMentorId())
+                .orElseThrow(() -> new IllegalArgumentException("Mentor with id: " + command.getMentorId() + " not found."));
+        Consultation consultation = getConsultationAndSetValues(id, command, mentor);
+
+        return modelMapper.map(consultation, ConsultationDto.class);
+    }
+
+    private Consultation getConsultationAndSetValues(long id, UpdateConsultationCommand command, Mentor mentor) {
         Consultation consultation = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Consultation with id: " + id + " not found."));
-        Mentor mentor = mentorRepository.getById(command.getMentorId());
+
         consultation.setTitle(command.getTitle());
         consultation.setTime(command.getTime());
-        consultation.setMentor(mentor);
+        if (mentor.getStatus() == Status.ACTIVE) {
+            consultation.setMentor(mentor);
+        }
         if (command.getSubject() != null) {
             consultation.setSubject(command.getSubject());
         }
 
-        return modelMapper.map(consultation, ConsultationDto.class);
+        return consultation;
     }
 
     public void deleteConsultation(long id) {

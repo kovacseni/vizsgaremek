@@ -2,9 +2,14 @@ package vizsgaremek.consultation;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.zalando.problem.Problem;
+import org.zalando.problem.Status;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,5 +50,21 @@ public class ConsultationController {
     @GetMapping("/mentor/{id}")
     public List<ConsultationDto> listConsultationsByMentorId(@PathVariable("id") long id, @RequestParam Optional<String> prefix) {
         return service.listConsultationsByMentorId(id, prefix);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Problem> handleNotFound(IllegalArgumentException iae) {
+        Problem problem =
+                Problem.builder()
+                        .withType(URI.create("consultations/mentor/not-active"))
+                        .withTitle("Not active")
+                        .withStatus(Status.BAD_REQUEST)
+                        .withDetail(iae.getMessage())
+                        .build();
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+                .body(problem);
     }
 }

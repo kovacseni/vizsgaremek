@@ -25,4 +25,10 @@ public class UpdateConsultationCommand {
     private Long mentorId;
 
     private String subject;
+
+    public UpdateConsultationCommand(String title, LocalDateTime time, Long mentorId) {
+        this.title = title;
+        this.time = time;
+        this.mentorId = mentorId;
+    }
 }

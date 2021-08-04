@@ -7,7 +7,7 @@ GET http://localhost:8080/api/consultations?prefix=vizsga
 Accept: application/json
 
 ### (find Consultation by id)
-GET http://localhost:8080/api/consultations/2
+GET http://localhost:8080/api/consultations/5
 Accept: application/json
 
 ### (create and add Consultation)
@@ -16,28 +16,28 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "title": "Konzultáció a vizgaremekről",
+  "title": "Konzultáció a vizsgaremekről",
   "time": "2021-07-28T15:30:00",
   "mentorId": 2
 }
 
 ### (update Consultation)
-PUT http://localhost:8080/api/consultations/3
+PUT http://localhost:8080/api/consultations/1
 Content-Type: application/json
 Accept: application/json
 
 {
-  "title": "Konzultáció a vizgaremekről",
+  "title": "Konzultáció a vizsgaremekről",
   "time": "2021-07-28T15:30:00",
   "mentorId": 1,
   "subject": "Projektmunka és vizsgaremek témák kiosztása"
 }
 
 ### (delete Consultation)
-DELETE http://localhost:8080/api/consultations/2
+DELETE http://localhost:8080/api/consultations/3
 
 ### (list Consultations by Mentor id)
-GET http://localhost:8080/api/consultations/mentor/3
+GET http://localhost:8080/api/consultations/mentor/2
 Accept: application/json
 
 ### Validation (elvárt válasz: a validáció miatt elbukik a Consultation létrehozása)
@@ -142,4 +142,29 @@ Accept: application/json
   "time": "2021-07-28T15:30:00",
   "mentorId": 2,
   "subject": null
+}
+
+### Validation (create and add Consultation, ha itt egy nem ACTIVE státuszú Mentor id-ja van megadva, akkor az elvárt válasz:
+### 400-as státuszkód, "Mentor with id: X is not in active status.")
+POST http://localhost:8080/api/consultations
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Konzultáció a vizsgaremekről",
+  "time": "2021-07-28T15:30:00",
+  "mentorId": 5
+}
+
+### Validation (update Consultation, ha itt egy nem ACTIVE státuszú Mentor id-ja van megadva, akkor az elvárt válasz:
+### a konzultáció adatai módosulnak, kivéve a hozzárendelt mentort)
+PUT http://localhost:8080/api/consultations/2
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Konzultáció a vizsgaremekről",
+  "time": "2021-07-28T15:30:00",
+  "mentorId": 5,
+  "subject": "Projektmunka és vizsgaremek témák kiosztása"
 }
