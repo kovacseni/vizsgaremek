@@ -1,10 +1,15 @@
 package vizsgaremek.mentor;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
+import vizsgaremek.consultation.Consultation;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -26,8 +31,27 @@ public class Mentor {
     @Enumerated(value = EnumType.STRING)
     private Position position;
 
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "mentor")
+    private List<Consultation> consultations;
+
     public Mentor(String name, String email) {
         this.name = name;
         this.email = email;
+    }
+
+    public void addConsultation(Consultation consultation) {
+        if (consultations == null) {
+            consultations = new ArrayList<>();
+        }
+        consultations.add(consultation);
+        consultation.setMentor(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Mentor{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
