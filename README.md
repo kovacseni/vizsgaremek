@@ -14,9 +14,13 @@ fogja képezni ez az egyébként önállóan is működőképes projekt, mely az
 
 Ez egy klasszikus háromrétegű webes alkalmazás, controller, service és repository 
 réteggel, entitásonként a rétegeknek megfelelően elnevezett osztályokkal. A megvalósítás 
-Java programnyelven, Spring Boot alkalmazásával történt. Az alkalmazás http kéréseket 
-képes fogadni, ehhez a RESTful webszolgáltatásokat használja. Adattárolásra SQL adatbázist 
-használ, melyben a táblákat Flyway hozza létre. Az alkalmazás tesztelésére integrációs 
+Java programnyelven, Spring Boot használatával történt. Az alkalmazás HTTP kéréseket 
+képes fogadni, ezt a RESTful webszolgáltatások segítségével valósítja meg. 
+Adattárolásra SQL alapú MariaDB adatbázist használ, melyben a táblákat Flyway hozza létre. 
+Az adatbáziskezelés Spring Data JPA technológiával történik. A beérkező adatok validálását a 
+Spring Boot `spring-boot-starter-validation` modulja végzi, az általános hibakezelést pedig 
+a `problem-spring-web-starter` projekt.
+Az alkalmazás tesztelésére RestTemplate-tel implementált integrációs 
 tesztek állnak rendelkezésre, a kipróbálásához pedig az `src/test/java` könyvtáron belül 
 HTTP fájlok, valamint egy részletesen feliratozott Swagger felület. A mellékelt `Dockerfile` 
 segítségével az alkalmazásból egyszerű és layerelt Docker image is készíthető.
@@ -46,6 +50,8 @@ A következő végpontokon érjük el az entitást:
 | PUT          | `"/api/mentors/{id}"`   | módosít egy oktatót `id` alapján                                       |
 | DELETE       | `"/api/mentors/{id}"`   | `id` alapján úgy módosít egy oktatót, hogy a státusza `DELETED` legyen |
 
+A `Mentor` entitás adatai az adatbázisban a `mentors` táblában tárolódnak.
+
 ---
 
 ### Consultation
@@ -70,5 +76,8 @@ A következő végpontokon érjük el az entitást:
 | PUT          | `"/api/consultations/{id}"`          | módosít egy adott konzultációt `id` alapján                                    |
 | DELETE       | `"/api/consultations/{id}"`          | töröl egy adott konzultációt `id` alapján                                      |
 | GET          | `"/api/consultations/mentor/{id}"`   | lekérdezi egy adott oktatóhoz tartozó konzultációkat az oktató `id`-ja alapján |
+
+A `Consultation` entitás adatai az adatbázisban a `consultations` táblában tárolódnak, mely egy külső 
+kulcsot tartalmaz az adott konzultációhoz kapcsolódó oktató `id`-jára.
 
 ---
