@@ -5,8 +5,21 @@
 Jelen vizsgaremek témájához az apropót az adta, hogy készülőben van egy valós szoftver, 
 amely a jövőben meg fogja könnyíteni a Struktúraváltó tanfolyamok során a résztvevők 
 előrehaladásának ellenőrzését, tárolását, lekérdezését, áttekintését. Ennek egy részét 
-fogja képezni ez a projekt is, amely az oktatók és az általuk megtartott konzultációk 
-kezelését teszi lehetővé.
+fogja képezni ez az egyébként önállóan is működőképes projekt, mely az oktatók és az 
+általuk megtartott konzultációk kezelését teszi lehetővé.
+
+---
+
+## Technológiai részletek
+
+Ez egy klasszikus háromrétegű webes alkalmazás, controller, service és repository 
+réteggel, entitásonként a rétegeknek megfelelően elnevezett osztályokkal. A megvalósítás 
+Java programnyelven, Spring Boot alkalmazásával történt. Az alkalmazás http kéréseket 
+képes fogadni, ehhez a RESTful webszolgáltatásokat használja. Adattárolásra SQL adatbázist 
+használ, melyben a táblákat Flyway hozza létre. Az alkalmazás tesztelésére integrációs 
+tesztek állnak rendelkezésre, a kipróbálásához pedig az `src/test/java` könyvtáron belül 
+HTTP fájlok, valamint egy részletesen feliratozott Swagger felület. A mellékelt `Dockerfile` 
+segítségével az alkalmazásból egyszerű és layerelt Docker image is készíthető.
 
 ---
 
