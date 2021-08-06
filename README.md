@@ -10,23 +10,6 @@ fogja képezni ez az egyébként önállóan is működőképes projekt, mely az
 
 ---
 
-## Technológiai részletek
-
-Ez egy klasszikus háromrétegű webes alkalmazás, controller, service és repository 
-réteggel, entitásonként a rétegeknek megfelelően elnevezett osztályokkal. A megvalósítás 
-Java programnyelven, Spring Boot használatával történt. Az alkalmazás HTTP kéréseket 
-képes fogadni, ezt a RESTful webszolgáltatások segítségével valósítja meg. 
-Adattárolásra SQL alapú MariaDB adatbázist használ, melyben a táblákat Flyway hozza létre. 
-Az adatbáziskezelés Spring Data JPA technológiával történik. A beérkező adatok validálását a 
-Spring Boot `spring-boot-starter-validation` modulja végzi, az általános hibakezelést pedig 
-a `problem-spring-web-starter` projekt.
-Az alkalmazás tesztelésére RestTemplate-tel implementált integrációs 
-tesztek állnak rendelkezésre, a kipróbálásához pedig az `src/test/java` könyvtáron belül 
-HTTP fájlok, valamint egy részletesen feliratozott Swagger felület. A mellékelt `Dockerfile` 
-segítségével az alkalmazásból egyszerű és layerelt Docker image is készíthető.
-
----
-
 ## Használata
 
 ### Mentor
@@ -79,5 +62,22 @@ A következő végpontokon érjük el az entitást:
 
 A `Consultation` entitás adatai az adatbázisban a `consultations` táblában tárolódnak, mely egy külső 
 kulcsot tartalmaz az adott konzultációhoz kapcsolódó oktató `id`-jára.
+
+---
+
+## Technológiai részletek
+
+Ez egy klasszikus háromrétegű webes alkalmazás, controller, service és repository
+réteggel, entitásonként a rétegeknek megfelelően elnevezett osztályokkal. A megvalósítás
+Java programnyelven, Spring Boot használatával történt. Az alkalmazás HTTP kéréseket
+képes fogadni, ezt a RESTful webszolgáltatások segítségével valósítja meg.
+Adattárolásra SQL alapú MariaDB adatbázist használ, melyben a táblákat Flyway hozza létre.
+Az adatbáziskezelés Spring Data JPA technológiával történik. A beérkező adatok validálását a
+Spring Boot `spring-boot-starter-validation` modulja végzi, az általános hibakezelést pedig
+a `problem-spring-web-starter` projekt.
+Az alkalmazás tesztelésére RestTemplate-tel implementált integrációs
+tesztek állnak rendelkezésre, a kipróbálásához pedig az `src/test/java` könyvtáron belül
+HTTP fájlok, valamint egy részletesen feliratozott Swagger felület. A mellékelt `Dockerfile`
+segítségével az alkalmazásból layerelt Docker image készíthető.
 
 ---

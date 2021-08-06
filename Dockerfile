@@ -1,8 +1,3 @@
-#FROM adoptopenjdk:16-jre-hotspot
-#WORKDIR /opt/app
-#COPY target/vizsgaremek-0.0.1-SNAPSHOT.jar vizsgaremek.jar
-#CMD ["java", "-jar", "vizsgaremek.jar"]
-
 FROM adoptopenjdk:16-jre-hotspot as builder
 WORKDIR application
 COPY target/vizsgaremek-0.0.1-SNAPSHOT.jar vizsgaremek.jar
