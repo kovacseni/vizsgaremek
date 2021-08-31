@@ -77,7 +77,7 @@ public class ConsultationController {
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<Problem> handleNotFound(IllegalArgumentException iae) {
+    public ResponseEntity<Problem> handleBadRequest(IllegalArgumentException iae) {
         Problem problem =
                 Problem.builder()
                         .withType(URI.create("consultations/mentor/not-active"))
